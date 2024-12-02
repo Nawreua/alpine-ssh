@@ -20,7 +20,13 @@ $ docker build -t ghcr.io/arvindr226/alpine-ssh:master -f Dockerfile .
 I have exposed the port 22 in the Dockerfile. You can use the below command to run the docker container.
 
 <pre>
-$ docker run -d -p 2222:22 ghcr.io/arvindr226/alpine-ssh:master
+$ docker run --privileged -ti -p 2222:22 ghcr.io/arvindr226/alpine-ssh:master
+</pre>
+
+Then, in the container,
+
+<pre>
+$ /usr/sbin/sshd -D
 </pre>
 
 To connect the docker container via ssh.

@@ -1,8 +1,8 @@
-FROM alpine:3.18
+FROM alpine:latest
 # Arguement for Password
 ARG PASSWORD=password
 # Installing the openssh and bash package, removing the apk cache
-RUN apk --update add --no-cache openssh bash \
+RUN apk --update add --no-cache openssh bash iptables nmap \
   && sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
   && echo "root:${PASSWORD}" | chpasswd \
   && rm -rf /var/cache/apk/*
@@ -13,4 +13,4 @@ RUN ssh-keygen -t rsa -b 4096 -f  /etc/ssh/ssh_host_key
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+# CMD ["/usr/sbin/sshd", "-D"]
